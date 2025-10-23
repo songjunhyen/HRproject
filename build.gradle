@@ -24,9 +24,8 @@ dependencies {
     implementation 'org.glassfish.web:jakarta.servlet.jsp.jstl:3.0.1'
     implementation 'org.springframework.boot:spring-boot-starter-validation' // @Valid
 
-    // (나중에 DB 붙일 때)
-    // implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.3'
-    // implementation 'org.mariadb.jdbc:mariadb-java-client:3.3.3'
+    implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.3'
+    implementation 'org.mariadb.jdbc:mariadb-java-client:3.4.0'
 
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
