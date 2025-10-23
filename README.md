@@ -55,7 +55,7 @@ MariaDB ←→ MyBatis ←→ Spring Boot ←→ JSP (UI)
 
 | 구분 | 내용 |
 |------|------|
-| **Language** | Java 17 |
+| **Language** | Java 21 |
 | **Framework** | Spring Boot 3.x, Spring Security, MyBatis |
 | **Database** | MariaDB |
 | **Build Tool** | Gradle |
