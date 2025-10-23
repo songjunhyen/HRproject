@@ -8,16 +8,16 @@ public class HomeController {
     /** JSP 파일 (뷰 리졸버 경로: /WEB-INF/jsp/) */
     @GetMapping("/")
     public String index() {
-        // 실제 경로: src/main/webapp/WEB-INF/jsp/index.jsp
+        // static 밑에 있는 파일은 뷰 리졸버 없이 바로 접근 가능.
+        // 여기서는 redirect로 넘기면 됨.
         return "index";
     }
 
-    /** HTML 파일 (resources/static/page.html) */
+    /** HTML 파일 (resources/static/index.html) */
     @GetMapping("/page")
     public String page() {
-        // static 밑에 있는 파일은 뷰 리졸버 없이 바로 접근 가능.
-        // 여기서는 redirect로 넘기면 됨.
-        return "redirect:/page.html";
+        // 실제 경로: src/main/webapp/WEB-INF/jsp/homePage.jsp
+        return "index";
     }
 }
 /*
