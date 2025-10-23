@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.songjunhyen.hrms.dao.EmployeeDao">
+
+    <!-- 컬럼 ↔ 필드 매핑 -->
+    <resultMap id="EmployeeMap" type="com.songjunhyen.hrms.domain.Employee">
+        <id     column="user_id"        property="userId"/>
+        <result column="password_hash"  property="passwordHash"/>
+        <result column="name"           property="name"/>
+        <result column="email"          property="email"/>
+        <result column="dept_id"        property="deptId"/>
+        <result column="position"       property="position"/>
+        <result column="status"         property="status"/>
+        <result column="hire_date"      property="hireDate"/>
+    </resultMap>
+
+    <select id="findAll" resultMap="EmployeeMap">
+        SELECT user_id, password_hash, name, email, dept_id, position, status, hire_date
+        FROM employees
+        ORDER BY user_id
+    </select>
+
+    <select id="findById" parameterType="string" resultMap="EmployeeMap">
+        SELECT user_id, password_hash, name, email, dept_id, position, status, hire_date
+        FROM employees
+        WHERE user_id = #{userId}
+    </select>
+
+    <insert id="insert" parameterType="com.songjunhyen.hrms.domain.Employee">
+        INSERT INTO employees (user_id, password_hash, name, email, dept_id, position, status, hire_date)
+        VALUES (#{userId}, #{passwordHash}, #{name}, #{email}, #{deptId}, #{position}, #{status}, #{hireDate})
+    </insert>
+
+    <update id="update" parameterType="com.songjunhyen.hrms.domain.Employee">
+        UPDATE employees
+        SET name=#{name}, email=#{email}, dept_id=#{deptId}, position=#{position},
+        status=#{status}, hire_date=#{hireDate}
+        WHERE user_id=#{userId}
+    </update>
+
+    <delete id="delete" parameterType="string">
+        DELETE FROM employees WHERE user_id=#{userId}
+    </delete>
+
+</mapper>

@@ -1,5 +1,4 @@
 SET NAMES utf8mb4;
-SET time_zone = 'Asia/Seoul';
 
 -- 1) 기본 영역 ─────────────────────────────────────────────
 
