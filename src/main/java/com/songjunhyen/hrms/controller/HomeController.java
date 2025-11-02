@@ -1,29 +1,42 @@
 package com.songjunhyen.hrms.controller;
 
+import com.songjunhyen.hrms.service.AdminService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
+@RequiredArgsConstructor
 public class HomeController {
-    /** JSP 파일 (뷰 리졸버 경로: /WEB-INF/jsp/) */
-    @GetMapping("/")
+    private final AdminService adminService;
+
+    /** HTML 파일 (resources/static/home.html) */
+    @GetMapping("/htmlpage1")
     public String index() {
         // static 밑에 있는 파일은 뷰 리졸버 없이 바로 접근 가능.
         // 여기서는 redirect로 넘기면 됨.
-        return "index";
+        return "forward:/home.html";
     }
 
-    /** HTML 파일 (resources/static/index.html) */
-    @GetMapping("/page")
+    /** JSP 파일 (뷰 리졸버 경로: /WEB-INF/jsp/) */
+    @GetMapping("/")
     public String page() {
-        // 실제 경로: src/main/webapp/WEB-INF/jsp/homePage.jsp
+        // 실제 경로: src/main/webapp/WEB-INF/jsp/homepage.jsp
+        return "homepage";
+    }
+    @GetMapping("/index")
+    public String indexpage(Model model) {
+        model.addAttribute("departments", adminService.listDepartments());
+        model.addAttribute("employees",   adminService.listEmployees());
+        model.addAttribute("roles",       adminService.listRoles());
         return "index";
     }
 }
 /*
 🟢 HTML (정적 페이지 / public 영역)
 위치: src/main/resources/static/
-예: index.html, about.html, contact.html
+예: index.jsp, about.html, contact.html
 접근: /, /about, /contact
 로그인 없이 누구나 접근 가능
 용도:

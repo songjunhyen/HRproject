@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.songjunhyen.hrms.dao.RoleDao">
+
+    <sql id="BaseColumns">
+        id, user_id, role_name, created_at
+    </sql>
+
+    <resultMap id="RoleMap" type="com.songjunhyen.hrms.domain.Role">
+        <id column="id" property="id"/>
+        <result column="user_id" property="userId"/>
+        <result column="role_name" property="roleName"/>
+        <result column="created_at" property="createdAt"/>
+    </resultMap>
+
+    <select id="findAll" resultMap="RoleMap">
+        SELECT <include refid="BaseColumns"/>
+        FROM employee_roles
+        ORDER BY user_id
+    </select>
+
+    <select id="findByUserId" resultMap="RoleMap">
+        SELECT id, user_id, role_name, created_at
+        FROM employee_roles
+        WHERE user_id = #{value}
+    </select>
+
+    <insert id="insert" parameterType="com.songjunhyen.hrms.domain.Role">
+        INSERT INTO employee_roles (user_id, role_name)
+        VALUES (#{userId}, #{roleName})
+    </insert>
+
+    <delete id="deleteByUserId" parameterType="string">
+        DELETE FROM employee_roles WHERE user_id = #{value}
+    </delete>
+
+</mapper>

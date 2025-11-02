@@ -5,7 +5,7 @@ import java.time.LocalDate;
 
 @Data
 public class Employee {
-    private String userId;        // PK (employees.user_id)
+    private String userId;
     private String passwordHash;
     private String name;
     private String email;

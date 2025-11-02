@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.songjunhyen.hrms.dao.EmployeeDao">
+
+    <!-- 공통 컬럼 -->
+    <sql id="BaseColumns">
+        user_id, password_hash, name, email, dept_id, position, status, hire_date
+    </sql>
+
+    <!-- 컬럼 ↔ 필드 매핑 -->
+    <resultMap id="EmployeeMap" type="com.songjunhyen.hrms.domain.Employee">
+        <id     column="user_id"        property="userId"/>
+        <result column="password_hash"  property="passwordHash"/>
+        <result column="name"           property="name"/>
+        <result column="email"          property="email"/>
+        <result column="dept_id"        property="deptId"/>
+        <result column="position"       property="position"/>
+        <result column="status"         property="status"/>
+        <result column="hire_date"      property="hireDate"/>
+    </resultMap>
+
+    <!-- findAll -->
+    <select id="findAll" resultMap="EmployeeMap">
+        SELECT <include refid="BaseColumns"/>
+        FROM employees
+        ORDER BY user_id
+    </select>
+
+    <!-- findById -->
+    <select id="findById" parameterType="string" resultMap="EmployeeMap">
+        SELECT <include refid="BaseColumns"/>
+        FROM employees
+        WHERE user_id = #{userId}
+        LIMIT 1
+    </select>
+
+    <!-- insert : 리턴 int = 영향 행 수 -->
+    <insert id="insert" parameterType="com.songjunhyen.hrms.domain.Employee">
+        INSERT INTO employees (user_id, password_hash, name, email, dept_id, position, status, hire_date)
+        VALUES (#{userId}, #{passwordHash}, #{name}, #{email}, #{deptId}, #{position}, #{status}, #{hireDate})
+    </insert>
+
+    <!-- update(동적) : 리턴 int = 영향 행 수 -->
+    <update id="update" parameterType="com.songjunhyen.hrms.domain.Employee">
+        UPDATE employees
+        <set>
+            <if test="passwordHash != null">password_hash = #{passwordHash},</if>
+            <if test="name != null">name = #{name},</if>
+            <if test="email != null">email = #{email},</if>
+            <if test="deptId != null">dept_id = #{deptId},</if>
+            <if test="position != null">position = #{position},</if>
+            <if test="status != null">status = #{status},</if>
+            <if test="hireDate != null">hire_date = #{hireDate},</if>
+        </set>
+        WHERE user_id = #{userId}
+    </update>
+
+    <!-- delete : 리턴 int = 영향 행 수 -->
+    <delete id="delete" parameterType="string">
+        DELETE FROM employees WHERE user_id = #{userId}
+    </delete>
+
+    <!-- existsById : boolean -->
+    <select id="existsById" parameterType="string" resultType="boolean">
+        SELECT EXISTS(SELECT 1 FROM employees WHERE user_id = #{userId})
+    </select>
+
+    <!-- existsByEmail : boolean -->
+    <select id="existsByEmail" parameterType="string" resultType="boolean">
+        SELECT EXISTS(SELECT 1 FROM employees WHERE email = #{email})
+    </select>
+
+    <!-- updatePassword : void (원하면 int로 바꿔도 됨) -->
+    <update id="updatePassword">
+        UPDATE employees
+        SET password_hash = #{passwordHash}
+        WHERE user_id = #{userId}
+    </update>
+
+</mapper>
