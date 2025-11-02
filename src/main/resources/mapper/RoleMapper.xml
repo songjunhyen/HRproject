@@ -35,4 +35,10 @@
         DELETE FROM employee_roles WHERE user_id = #{value}
     </delete>
 
+    <select id="findRoleNamesByUserId" parameterType="string" resultType="string">
+        SELECT role_name
+        FROM employee_roles
+        WHERE user_id = #{value}
+        ORDER BY role_name
+    </select>
 </mapper>

@@ -10,4 +10,6 @@ public interface RoleDao {
     List<Role> findByUserId(String userId);
     int insert(Role role);
     int deleteByUserId(String userId);
+
+    List<String> findRoleNamesByUserId(String userId);
 }

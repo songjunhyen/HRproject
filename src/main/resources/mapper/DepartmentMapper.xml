@@ -51,4 +51,7 @@
         DELETE FROM departments WHERE id = #{value}
     </delete>
 
+    <select id="findNameById" parameterType="int" resultType="string">
+        SELECT name FROM departments WHERE id = #{value} LIMIT 1
+    </select>
 </mapper>

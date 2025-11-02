@@ -11,4 +11,6 @@ public interface DepartmentDao {
     int insert(Department dept);
     int update(Department dept);
     int delete(Integer id);
+    String findNameById(Integer id);
+
 }
